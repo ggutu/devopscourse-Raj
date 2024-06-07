@@ -1,12 +1,13 @@
 
 pipeline {
     agent { node { label "terraform-node" } } 
-  stages {
-       stage('Clone terraform') {
-            echo 'Hello world'
-            checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ggutu/devopscourse-Raj.git']])
-                  } }
-           stage('Terraform Provision') {
+ stages {
+        stage('Clone Terraform Repo') {
+            steps {
+                echo 'Hello World'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ggutu/devopscourse-Raj.git']])
+        }}
+        stage('Terraform Provision') {
             steps {
                 sh """
                     cd terraform
@@ -29,3 +30,5 @@ pipeline {
         }
     }
 }
+ 
+           
