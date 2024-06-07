@@ -1,14 +1,12 @@
 
 pipeline {
     agent { node { label "terraform-node" } } 
-    parameters {
-                choice(name: 'deploy_choice', choices:['apply','destroy'],description:'The deployment type')
-                  }
-    environment {
-        EMAIL_TO = 'fusisoft@gmail.com'
-    }
-    stages {
-        stage('Terraform Provision') {
+  stages {
+       stage('Clone terraform') {
+            echo 'Hello world'
+            checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ggutu/devopscourse-Raj.git']])
+                  } }
+           stage('Terraform Provision') {
             steps {
                 sh """
                     cd terraform
