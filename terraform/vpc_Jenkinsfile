@@ -6,7 +6,14 @@ pipeline {
             steps {
                 echo 'Hello World'
                git branch: 'main', credentialsId: 'gitHub-updated-password', url: 'https://github.com/ggutu/VPC-TERRAFORM1.git'
-        }}
+        }}pipeline {
+    agent { node { label "terraform-node" } } 
+    parameters {
+                choice(name: 'deploy_choice', choices:['apply','destroy'],description:'The deployment type')
+                  }
+    environment {
+        EMAIL_TO = 'fusisoft@gmail.com'
+    }
         stage('Terraform Provision') {
             steps {
                 sh """
